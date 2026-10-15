@@ -5,8 +5,7 @@ FILE_NAME = "tasks.json"
 
 def load_tasks():
     if not os.path.exists(FILE_NAME):
-        return []
-# to handel the error that user might have corrupted the json file, we can use try and except to catch the error and return an empty list instead of crashing the program
+        return [] # to handel the error that user might have corrupted the json file, we can use try and except to catch the error and return an empty list instead of crashing the program
     try :
         with open(FILE_NAME, "r") as file:
             return json.load(file)
@@ -25,7 +24,7 @@ def view_tasks(tasks):
         print("\n------ TASKS ------")
         for index, task in enumerate(tasks, start=1):
             status = "Done" if task["completed"] else "Pending"
-            print(f"{index}. {task['Title']} - {status}") # the design or layout of the task list is simple and easy to read, with each task displayed on a new line along with its index number and completion status.
+            print(f"{index}. {task['Title']} ---> {status}") # the design or layout of the task list is simple and easy to read, with each task displayed on a new line along with its index number and completion status.
 
 def add_task(tasks):
     Title = input("Enter the task name: ").strip() # strip() removes any leading or trailing whitespace from the input, ensuring that the task name is clean and free of unnecessary spaces.
@@ -41,6 +40,8 @@ def complete_task(tasks):
     view_tasks(tasks)
     if not tasks:
         return
+        # the user is using a seeing the counter from 1 but python actually counts from 0
+        # so we have to subtract 1 from the input entered by the user for the code to work correctly
 
     try:
         task_index = int(input("Enter the task number to mark as completed: ")) - 1
